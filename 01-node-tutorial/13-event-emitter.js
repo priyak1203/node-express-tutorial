@@ -7,8 +7,12 @@ const EventEmitter = require('events');
 // instance of the class returns an object
 const customEmitter = new EventEmitter();
 
-customEmitter.on('response', () => {
-  console.log(`Data Receieved`);
+customEmitter.on('response', (name, id) => {
+  console.log(`Data received user ${name} with id : ${id}`);
 });
 
-customEmitter.emit('response');
+customEmitter.on('response', () => {
+  console.log(`Some other logic`);
+});
+
+customEmitter.emit('response', 'John', 36);
