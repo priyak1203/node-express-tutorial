@@ -6,4 +6,4 @@ setTimeout(() => {
 
 console.log('Third');
 
-// completed and exited operatin system process
+// completed and exited operation system process
