@@ -3,6 +3,7 @@ const path = require('path');
 const app = express();
 
 // setup static and middleware
+// by convention is it set in public folder
 app.use(express.static('./public'));
 
 app.get('/', (req, res) => {
