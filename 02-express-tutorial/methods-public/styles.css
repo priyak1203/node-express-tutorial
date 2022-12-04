@@ -19,6 +19,8 @@
 
   /* rest */
   --white: #fff;
+  --red-light: #f8d7da;
+  --red-dark: #842029;
 
   /* box shadows */
   --shadow-1: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
@@ -69,6 +71,10 @@ h3 {
 
 h5 {
   font-size: 1.25rem;
+}
+
+small {
+  font-size: var(--smallText);
 }
 
 a {
@@ -162,4 +168,31 @@ button:hover {
 
 button.block {
   width: 100%;
+}
+
+.result {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+h5 + h5 {
+  margin-left: 1rem;
+}
+.alert {
+  padding: 0.375rem 0.75rem;
+  margin-bottom: 1rem;
+  border-color: transparent;
+  border-radius: var(--borderRadius);
+}
+.alert-danger {
+  color: var(--red-dark);
+  background-color: var(--red-light);
+  width: 600px;
+  text-align: center;
+}
+
+.form-alert {
+  color: var(--red-dark);
+  text-transform: capitalize;
 }

@@ -22,8 +22,72 @@
       <section>
         <form>
           <h3>javascript form</h3>
+          <div class="form-row">
+            <label for="name">enter name</label>
+            <input
+              type="text"
+              name="name"
+              id="name"
+              class="form-input"
+              autocomplete="off"
+            />
+            <small class="form-alert"></small>
+          </div>
+          <button type="submit" class="block submit-btn">submit</button>
         </form>
+        <div class="result"></div>
       </section>
     </main>
+    <!-- axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+      const result = document.querySelector('.result');
+
+      async function fetchPeople() {
+        try {
+          const {
+            data: { data },
+          } = await axios.get('/api/people');
+
+          const people = data.map((person) => `<h5>${person.name}</h5>`);
+
+          result.innerHTML = people.join('');
+        } catch (error) {
+          result.innerHTML = `<div class="alert alert-danger"> Can't Fetch Data</div>`;
+        }
+      }
+      fetchPeople();
+
+      // submitting form
+      const formInput = document.querySelector('.form-input');
+      const submitButton = document.querySelector('.submit-btn');
+      const formAlert = document.querySelector('.form-alert');
+
+      submitButton.addEventListener('click', async (e) => {
+        e.preventDefault();
+        const nameValue = formInput.value;
+
+        try {
+          const { data } = await axios.post('/api/people', {
+            name: nameValue,
+          });
+
+          const h5 = document.createElement('h5');
+          h5.textContent = data.person;
+          result.appendChild(h5);
+          formAlert.textContent = '';
+        } catch (error) {
+          // console.log(error.response);
+          const msg = error.response.data.msg;
+          if (msg) {
+            formAlert.textContent = error.response.data.msg;
+          } else {
+            formAlert.textContent = error.response.data;
+          }
+        }
+
+        formInput.value = '';
+      });
+    </script>
   </body>
 </html>
