@@ -1,1 +1,8 @@
-const connectionString = `mongodb+srv://priya:<password>@nodeexpressprojects.kvvqdwn.mongodb.net/?retryWrites=true&w=majority`;
+const mongoose = require('mongoose');
+
+const connectDB = async (url) => {
+  mongoose.set('strictQuery', false);
+  return mongoose.connect(url).then(() => console.log('Connected to DB'));
+};
+
+module.exports = connectDB;
