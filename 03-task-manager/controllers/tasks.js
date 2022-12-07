@@ -3,19 +3,20 @@ const getAllTasks = (req, res) => {
 };
 
 const createTask = (req, res) => {
-  res.status(201).send('Create a task');
+  res.status(201).json(req.body);
 };
 
 const getTask = (req, res) => {
-  res.status(200).send('Get single task');
+  const { id } = req.params;
+  res.status(200).json({ id });
 };
 
 const updateTask = (req, res) => {
-  res.status(200).send('Update a task');
+  res.status(200).json(req.body);
 };
 
 const deleteTask = (req, res) => {
-  res.status(200).send('Delete a task');
+  res.status(200).json({ id: req.params.id });
 };
 
 module.exports = {
