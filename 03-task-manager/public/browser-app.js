@@ -42,7 +42,6 @@ const showAllTasks = async () => {
 showAllTasks();
 
 // delete task /api/v1/tasks/:id
-
 taskDOM.addEventListener('click', async (e) => {
   const el = e.target;
   if (el.parentElement.classList.contains('delete-btn')) {
