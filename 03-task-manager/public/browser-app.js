@@ -25,7 +25,7 @@ const showAllTasks = async () => {
             <!-- edit link -->
             <a href="" class="edit-link"><i class="fas fa-edit"></i></a>
             <!-- delete button -->
-            <button type="button" class="delete-btn">
+            <button type="button" class="delete-btn" data-id="${taskID}">
               <i class="fas fa-trash"></i>
             </button>
           </div>
@@ -40,3 +40,18 @@ const showAllTasks = async () => {
 };
 
 showAllTasks();
+
+// delete task /api/v1/tasks/:id
+
+taskDOM.addEventListener('click', async (e) => {
+  const el = e.target;
+  if (el.parentElement.classList.contains('delete-btn')) {
+    const id = el.parentElement.dataset.id;
+    try {
+      await axios.delete(`/api/v1/tasks/${id}`);
+      showAllTasks();
+    } catch (error) {
+      console.log(error);
+    }
+  }
+});
