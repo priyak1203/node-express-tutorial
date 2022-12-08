@@ -1,5 +1,8 @@
 const taskDOM = document.querySelector('.tasks');
 const loadingDOM = document.querySelector('.loading-text');
+const formDOM = document.querySelector('.task-form');
+const taskInputDOM = document.querySelector('.task-input');
+const formAlertDOM = document.querySelector('.form-alert');
 
 // Load tasks from api /api/v1/tasks
 const showAllTasks = async () => {
@@ -53,4 +56,27 @@ taskDOM.addEventListener('click', async (e) => {
       console.log(error);
     }
   }
+});
+
+// form submission
+formDOM.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const name = taskInputDOM.value;
+
+  try {
+    await axios.post('/api/v1/tasks', { name });
+    showAllTasks();
+    taskInputDOM.value = '';
+    formAlertDOM.style.display = 'block';
+    formAlertDOM.textContent = `success, task added`;
+    formAlertDOM.classList.add('text-success');
+  } catch (error) {
+    formAlertDOM.style.display = 'block';
+    formAlertDOM.textContent = `error, please try again`;
+  }
+
+  setTimeout(() => {
+    formAlertDOM.style.display = 'none';
+    formAlertDOM.classList.remove('text-success');
+  }, 3000);
 });
