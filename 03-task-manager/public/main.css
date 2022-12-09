@@ -20,6 +20,7 @@
   --grey-1000: #333538;
 
   /* rest */
+  --black: #222;
   --white: #fff;
   --red-dark: #842029;
   --green-dark: #0f5132;
@@ -27,6 +28,7 @@
   /* typography */
   --headingFont: 'Inconsolata', monospace;
   --bodyFont: 'Montserrat', sans-serif;
+  --smallText: 0.7em;
 
   /* rest */
   --backgroundColor: var(--grey-50);
@@ -116,6 +118,10 @@ a {
   box-shadow: var(--shadow-2);
 }
 
+button.block {
+  width: 100%;
+}
+
 /****************
     FORM STYLES
 *****************/
@@ -125,6 +131,13 @@ form {
   border-radius: var(--borderRadius);
   box-shadow: var(--shadow-2);
   padding: 2rem 2.5rem;
+}
+
+label {
+  display: block;
+  font-size: var(--smallText);
+  margin-bottom: 0.5rem;
+  text-transform: capitalize;
 }
 
 input {
@@ -140,14 +153,16 @@ input {
   color: var(--grey-600);
 }
 
-.task-form {
+.task-form,
+.single-task-form {
   width: 90vw;
   max-width: var(--fixed-width);
   margin: 0 auto;
   margin-top: 6rem;
 }
 
-.task-form h4 {
+.task-form h4,
+.single-task-form h4 {
   text-align: center;
 }
 
@@ -273,4 +288,48 @@ input {
 
 .delete-btn {
   color: var(--red-dark);
+}
+
+/*****************************
+    SINGLE TASK STYLES
+******************************/
+.single-task-form p {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.single-task-form .form-control {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  align-items: center;
+  justify-items: start;
+  gap: 0 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.single-task-form label {
+  margin-bottom: 0;
+  font-size: 1rem;
+}
+
+.task-edit-completed {
+  width: auto;
+}
+
+.back-link {
+  display: block;
+  width: 250px;
+  margin: 0 auto;
+  text-align: center;
+  margin-top: 5rem;
+  background: var(--black);
+}
+
+.back-link:hover {
+  background: var(--black);
+  opacity: 0.75;
+}
+
+.single-task-form .form-alert {
+  text-align: center;
 }

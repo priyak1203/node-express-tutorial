@@ -26,7 +26,7 @@ const showAllTasks = async () => {
           </h5>
           <div class="task-links">
             <!-- edit link -->
-            <a href="" class="edit-link"><i class="fas fa-edit"></i></a>
+            <a href="./task.html?id=${taskID}" class="edit-link"><i class="fas fa-edit"></i></a>
             <!-- delete button -->
             <button type="button" class="delete-btn" data-id="${taskID}">
               <i class="fas fa-trash"></i>
