@@ -19,7 +19,7 @@ app.use(notFound);
 // error handler
 app.use(errorHandler);
 
-const port = 5000;
+const port = process.env.PORT || 3000;
 
 // start the server only after connection to db is established
 const start = async () => {
