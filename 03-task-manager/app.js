@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const tasksRouter = require('./routes/tasks');
 const connectDB = require('./db/connect');
+const notFound = require('./middlewares/not-found');
 require('dotenv').config();
 
 // static a
@@ -11,6 +12,9 @@ app.use(express.json());
 
 // routes
 app.use('/api/v1/tasks', tasksRouter);
+
+// 404 route
+app.use(notFound);
 
 const port = 5000;
 
