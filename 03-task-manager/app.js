@@ -9,10 +9,6 @@ app.use(express.static('./public'));
 // middlewares
 app.use(express.json());
 
-app.get('/', (req, res) => {
-  res.status(200).send('Task Manager App');
-});
-
 // routes
 app.use('/api/v1/tasks', tasksRouter);
 
