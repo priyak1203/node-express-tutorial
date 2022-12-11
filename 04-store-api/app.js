@@ -1,4 +1,5 @@
 const express = require('express');
+const connectDB = require('./db/connect');
 const errorHandler = require('./middlewares/error-handler');
 const app = express();
 require('dotenv').config();
@@ -21,8 +22,14 @@ app.use(errorHandler);
 
 const PORT = process.env.PORT || 3000;
 
-const start = () => {
-  app.listen(PORT, console.log(`Server is listening on PORT: ${PORT}`));
+// start the server only after connection to db is established
+const start = async () => {
+  try {
+    await connectDB(process.env.MONGO_URI);
+    app.listen(PORT, console.log(`Server is listening on PORT: ${PORT}`));
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 start();
