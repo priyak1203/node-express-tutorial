@@ -1,9 +1,9 @@
 const express = require('express');
-const connectDB = require('./db/connect');
-const errorHandler = require('./middlewares/error-handler');
 const app = express();
 require('dotenv').config();
-
+const connectDB = require('./db/connect');
+const productsRouter = require('./routes/products');
+const errorHandler = require('./middlewares/error-handler');
 const notFound = require('./middlewares/not-found');
 
 // routes
@@ -14,6 +14,9 @@ app.get('/', (req, res) => {
       '<h1>Store API - App</h1><a href="/api/v1/products">Products Route</a>'
     );
 });
+
+// products route
+app.use('/api/v1/products', productsRouter);
 
 // not found
 app.use(notFound);
