@@ -4,9 +4,15 @@ require('express-async-errors');
 require('dotenv').config();
 const notFound = require('./middlewares/not-found');
 const errorHandler = require('./middlewares/error-handler');
+const mainRouter = require('./routes/main');
 
 // static
 app.use(express.static('./public'));
+// parse data
+app.use(express.json());
+
+// routes
+app.use('/api/v1', mainRouter);
 
 // not found
 app.use(notFound);
