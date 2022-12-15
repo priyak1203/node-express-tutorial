@@ -4,6 +4,7 @@ const passwordDOM = document.querySelector('.password-input');
 const formAlertDOM = document.querySelector('.form-alert');
 const dataBtnDOM = document.querySelector('#data');
 const resultDOM = document.querySelector('.result');
+const tokenDOM = document.querySelector('.token');
 
 formDOM.addEventListener('submit', async (e) => {
   e.preventDefault();
@@ -12,18 +13,26 @@ formDOM.addEventListener('submit', async (e) => {
   const password = passwordDOM.value;
 
   try {
-    const response = await axios.post('/api/v1/login', { username, password });
+    const { data } = await axios.post('/api/v1/login', { username, password });
+
     formAlertDOM.style.display = 'block';
-    formAlertDOM.textContent = 'Login Successful';
+    formAlertDOM.textContent = data.msg;
     formAlertDOM.classList.add('text-success');
 
     usernameDOM.value = '';
     passwordDOM.value = '';
 
-    console.log(response);
+    localStorage.setItem('token', data.token);
+    tokenDOM.textContent = 'token present';
+    tokenDOM.classList.add('text-success');
   } catch (error) {
     formAlertDOM.style.display = 'block';
     formAlertDOM.textContent = error.response.data.msg;
+    formAlertDOM.classList.remove('text-success');
+
+    localStorage.removeItem('token');
+    tokenDOM.textContent = 'no token present';
+    tokenDOM.classList.remove('text-success');
   }
 
   setTimeout(() => {
