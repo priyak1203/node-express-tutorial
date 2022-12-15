@@ -8,6 +8,7 @@ const tokenDOM = document.querySelector('.token');
 
 formDOM.addEventListener('submit', async (e) => {
   e.preventDefault();
+  resultDOM.innerHTML = '';
 
   const username = usernameDOM.value;
   const password = passwordDOM.value;
@@ -41,10 +42,18 @@ formDOM.addEventListener('submit', async (e) => {
 });
 
 dataBtnDOM.addEventListener('click', async () => {
+  const token = localStorage.getItem('token');
   try {
-    const { data } = await axios.get('/api/v1/dashboard');
+    const { data } = await axios.get('/api/v1/dashboard', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     resultDOM.innerHTML = `<h5>${data.msg}</h5><p>${data.secret}</p>`;
   } catch (error) {
-    console.log(error);
+    localStorage.removeItem('token');
+    resultDOM.innerHTML = `<p>${error.response.data.msg}</p>`;
+    tokenDOM.textContent = 'No token present';
+    tokenDOM.classList.remove('text-success');
   }
 });
