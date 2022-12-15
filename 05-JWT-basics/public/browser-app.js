@@ -22,7 +22,8 @@ formDOM.addEventListener('submit', async (e) => {
 
     console.log(response);
   } catch (error) {
-    console.log(error);
+    formAlertDOM.style.display = 'block';
+    formAlertDOM.textContent = error.response.data.msg;
   }
 
   setTimeout(() => {
