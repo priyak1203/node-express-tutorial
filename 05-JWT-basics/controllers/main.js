@@ -1,4 +1,3 @@
-const CustomAPIError = require('../errors/custom-error');
 const jwt = require('jsonwebtoken');
 const { BadRequest } = require('../errors');
 

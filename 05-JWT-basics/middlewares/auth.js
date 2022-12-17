@@ -1,4 +1,3 @@
-const CustomAPIError = require('../errors/custom-error');
 const jwt = require('jsonwebtoken');
 const { UnAuthenticated } = require('../errors');
 
@@ -17,7 +16,7 @@ const authentication = async (req, res, next) => {
     req.user = { id, username };
     next();
   } catch (error) {
-    throw new UnAuthenticated('Not authorized to access this route', 401);
+    throw new UnAuthenticated('Not authorized to access this route');
   }
 };
 
