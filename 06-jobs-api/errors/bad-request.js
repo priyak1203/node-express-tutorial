@@ -1,11 +1,11 @@
 const CustomAPIError = require('./custom-error');
 const { StatusCodes } = require('http-status-codes');
 
-class UnAuthenticated extends CustomAPIError {
+class BadRequestError extends CustomAPIError {
   constructor(message) {
     super(message);
-    this.statusCode = StatusCodes.UNAUTHORIZED;
+    this.statusCode = StatusCodes.BAD_REQUEST;
   }
 }
 
-module.exports = UnAuthenticated;
+module.exports = BadRequestError;
