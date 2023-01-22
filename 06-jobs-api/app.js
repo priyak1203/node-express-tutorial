@@ -3,15 +3,19 @@ const app = express();
 require('dotenv').config();
 require('express-async-errors');
 
+// routers
+const authRouter = require('./routes/auth');
+const jobsRouter = require('./routes/jobs');
+
+// error handlers
 const notFoundMiddleware = require('./middlewares/not-found');
 const errorHandlerMiddleware = require('./middlewares/error-handler');
 
-// routes
-app.get('/', (req, res) => {
-  res.send('Jobs API');
-});
+// set up routes
+app.use('/api/v1/auth', authRouter);
+app.use('/api/v1/jobs', jobsRouter);
 
-// middlewares
+// set up error handlers
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
 
