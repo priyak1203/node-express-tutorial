@@ -14,6 +14,9 @@ const jobsRouter = require('./routes/jobs');
 const notFoundMiddleware = require('./middlewares/not-found');
 const errorHandlerMiddleware = require('./middlewares/error-handler');
 
+// middlewares
+app.use(express.json());
+
 // set up routes
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/jobs', jobsRouter);
