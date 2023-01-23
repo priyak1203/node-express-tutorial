@@ -1,3 +1,4 @@
+const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 const { UnAuthenticatedError } = require('../errors');
 
@@ -14,7 +15,12 @@ const authentication = async (req, res, next) => {
     const payload = jwt.verify(token, process.env.JWT_SECRET);
     const { userId, name } = payload;
     // attach the user to the job routes
-    req.user = { userId, name };
+    // req.user = { userId, name };
+
+    // alternative  code
+    const user = await User.findById(userId).select('-password');
+    req.user = { user };
+
     next();
   } catch (error) {
     throw new UnAuthenticatedError('Not authorized to access this route');
