@@ -1,4 +1,3 @@
-const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 const { UnAuthenticatedError } = require('../errors');
 
@@ -15,11 +14,7 @@ const authentication = async (req, res, next) => {
     const payload = jwt.verify(token, process.env.JWT_SECRET);
     const { userId, name } = payload;
     // attach the user to the job routes
-    // req.user = { userId, name };
-
-    // alternative  code
-    const user = await User.findById(userId).select('-password');
-    req.user = { user };
+    req.user = { userId, name };
 
     next();
   } catch (error) {
