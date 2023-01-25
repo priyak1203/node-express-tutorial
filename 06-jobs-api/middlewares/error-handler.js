@@ -19,6 +19,14 @@ const errorHandler = (err, req, res, next) => {
     )} field, please choose another value`;
   }
 
+  // validation error
+  if (err.name === 'ValidationError') {
+    customError.statusCode = StatusCodes.BAD_REQUEST;
+    customError.msg = Object.values(err.errors)
+      .map((item) => item.message)
+      .join(', ');
+  }
+
   // return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ err });
   return res.status(customError.statusCode).json({ msg: customError.msg });
 };
