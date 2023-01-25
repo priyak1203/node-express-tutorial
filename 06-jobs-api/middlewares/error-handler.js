@@ -27,7 +27,12 @@ const errorHandler = (err, req, res, next) => {
       .join(', ');
   }
 
-  // return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ err });
+  // cast error
+  if (err.name === 'CastError') {
+    customError.statusCode = StatusCodes.NOT_FOUND;
+    customError.msg = `No item found with id : ${err.value}`;
+  }
+
   return res.status(customError.statusCode).json({ msg: customError.msg });
 };
 
