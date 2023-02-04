@@ -77,6 +77,19 @@ h1 {
   font-size: 3.052rem;
 }
 
+a {
+  text-decoration: none;
+  letter-spacing: var(--letterSpacing);
+}
+
+a,
+button {
+  line-height: 1.15;
+}
+button:disabled {
+  cursor: not-allowed;
+}
+
 .container {
   width: var(--fluid-width);
   max-width: var(--max-width);
