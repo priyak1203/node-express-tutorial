@@ -12,6 +12,7 @@
   --primary-700: #1d4ed8;
   /* grey */
   --grey-50: #f0f4f8;
+  --grey-500: #627d98;
   --grey-900: #102a43;
 
   /* rest of the colors */
@@ -63,7 +64,8 @@ p {
   max-width: 40em;
 }
 
-h1 {
+h1,
+h3 {
   margin: 0;
   margin-bottom: 1.38rem;
   font-family: var(--headingFont);
@@ -76,7 +78,9 @@ h1 {
   margin-top: 0;
   font-size: 3.052rem;
 }
-
+h3 {
+  font-size: 1.953rem;
+}
 a {
   text-decoration: none;
   letter-spacing: var(--letterSpacing);
@@ -100,6 +104,10 @@ button:disabled {
   width: 100%;
   display: block;
   object-fit: cover;
+}
+
+.full-page {
+  min-height: 100vh;
 }
 
 /* buttons */
