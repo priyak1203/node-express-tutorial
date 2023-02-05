@@ -17,11 +17,15 @@ const Register = () => {
   };
 
   const handleChange = (e) => {
-    console.log(e.target);
+    setValues({ ...values, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const { email, password, name, isMember } = values;
+    if (!email || !password || (!isMember && !name)) {
+      console.log('Please fill out all fields');
+    }
   };
 
   return (
