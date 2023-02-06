@@ -185,3 +185,8 @@ button:disabled {
 .btn-block {
   height: 35px;
 }
+
+/* toasts */
+.Toastify__toast {
+  text-transform: capitalize;
+}
