@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import Wrapper from '../assets/wrappers/RegisterPage';
 import { FormRow, Logo } from '../components';
@@ -15,6 +15,7 @@ const initialState = {
 const Register = () => {
   const [values, setValues] = useState(initialState);
   const dispatch = useDispatch();
+  const { isLoading, user } = useSelector((store) => store.user);
 
   const toggleMember = () => {
     setValues({ ...values, isMember: !values.isMember });
@@ -69,7 +70,7 @@ const Register = () => {
           value={values.password}
           handleChange={handleChange}
         />
-        <button type="submit" className="btn btn-block">
+        <button type="submit" className="btn btn-block" disabled={isLoading}>
           submit
         </button>
         <p>
