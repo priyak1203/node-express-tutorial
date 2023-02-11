@@ -37,10 +37,10 @@ const allJobsSlice = createSlice({
   initialState,
   reducers: {
     showLoading: (state) => {
-      state.isLoading(true);
+      state.isLoading = true;
     },
     hideLoading: (state) => {
-      state.isLoading(false);
+      state.isLoading = false;
     },
   },
   extraReducers: (builder) => {
