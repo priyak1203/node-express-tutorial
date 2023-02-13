@@ -173,6 +173,16 @@ button:disabled {
   background: var(--primary-700);
 }
 
+.btn-danger {
+  background: var(--red-light);
+  color: var(--red-dark);
+}
+
+.btn-danger:hover {
+  background: var(--red-dark);
+  color: var(--white);
+}
+
 /* form */
 .form {
   width: 90vw;
