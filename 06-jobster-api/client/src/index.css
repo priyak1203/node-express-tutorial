@@ -9,6 +9,7 @@
 :root {
   /* colors */
   --primary-100: #dbeafe;
+  --primary-200: #bfdbfe;
   --primary-500: #3b82f6;
   --primary-700: #1d4ed8;
   /* grey */
@@ -78,6 +79,7 @@ p {
 h1,
 h2,
 h3,
+h4,
 h5 {
   margin: 0;
   margin-bottom: 1.38rem;
@@ -97,14 +99,16 @@ h2 {
 h3 {
   font-size: 1.953rem;
 }
-a {
-  text-decoration: none;
-  letter-spacing: var(--letterSpacing);
+h4 {
+  font-size: 1.563rem;
 }
 h5 {
   font-size: 1.25rem;
 }
-
+a {
+  text-decoration: none;
+  letter-spacing: var(--letterSpacing);
+}
 a,
 button {
   line-height: 1.15;
@@ -157,6 +161,16 @@ button:disabled {
 
 .btn-block {
   width: 100%;
+}
+
+.btn-hipster {
+  color: var(--primary-500);
+  background: var(--primary-200);
+}
+
+.btn-hipster:hover {
+  color: var(--primary-200);
+  background: var(--primary-700);
 }
 
 /* form */
