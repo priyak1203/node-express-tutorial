@@ -1,7 +1,7 @@
 import Wrapper from '../assets/wrappers/SearchContainer';
 import { FormRow, FormRowSelect } from '.';
 import { useDispatch, useSelector } from 'react-redux';
-import { clearFilters, handleChange } from '../features/allJobs/allJobSlice';
+import { clearFilters, handleChange } from '../features/allJobs/allJobsSlice';
 
 const SearchContainer = () => {
   const { isLoading, search, searchType, searchStatus, sort, sortOptions } =

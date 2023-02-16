@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ChartsContainer, Loading, StatsContainer } from '../../components';
-import { showStats } from '../../features/allJobs/allJobSlice';
+import { showStats } from '../../features/allJobs/allJobsSlice';
 
 const Stats = () => {
   const dispatch = useDispatch();

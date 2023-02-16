@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
-import customFetch from '../../utils/axios';
-import { logoutUser } from '../user/userSlice';
+
+import { getAllJobsThunk, showStatsThunk } from './allJobsThunk';
 
 const initialFiltersState = {
   search: '',
@@ -15,49 +15,15 @@ const initialState = {
   isLoading: false,
   jobs: [],
   totalJobs: 0,
-  numOfPages: 1,
+  numOfPages: 0,
   page: 1,
   stats: {},
   monthlyApplications: [],
   ...initialFiltersState,
 };
 
-export const getAllJobs = createAsyncThunk(
-  'allJobs/getJobs',
-  async (_, thunkAPI) => {
-    const { page, search, searchStatus, sort, searchType } =
-      thunkAPI.getState().allJobs;
-
-    let url = `/jobs?status=${searchStatus}&jobType=${searchType}&sort=${sort}&page=${page}`;
-
-    if (search) {
-      url += `&search=${search}`;
-    }
-
-    try {
-      const response = await customFetch.get(url);
-      return response.data;
-    } catch (error) {
-      if (error.response.status === 401) {
-        thunkAPI.dispatch(logoutUser());
-        return thunkAPI.rejectWithValue('Unauthorized! Logging Out...');
-      }
-      return thunkAPI.rejectWithValue(error.response.data.msg);
-    }
-  }
-);
-
-export const showStats = createAsyncThunk(
-  'allJobs/showStats',
-  async (_, thunkAPI) => {
-    try {
-      const response = await customFetch.get('/jobs/stats');
-      return response.data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error.response.data.msg);
-    }
-  }
-);
+export const getAllJobs = createAsyncThunk('allJobs/getJobs', getAllJobsThunk);
+export const showStats = createAsyncThunk('allJobs/showStats', showStatsThunk);
 
 const allJobsSlice = createSlice({
   name: 'allJobs',
@@ -79,6 +45,7 @@ const allJobsSlice = createSlice({
     changePage: (state, { payload }) => {
       state.page = payload;
     },
+    clearAllJobsState: () => initialState,
   },
   extraReducers: (builder) => {
     builder
@@ -116,5 +83,6 @@ export const {
   handleChange,
   clearFilters,
   changePage,
+  clearAllJobsState,
 } = allJobsSlice.actions;
 export default allJobsSlice.reducer;
