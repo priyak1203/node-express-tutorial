@@ -14,6 +14,9 @@ const jobsRouter = require('./routes/jobs');
 const notFoundMiddleware = require('./middleware/not-found');
 const errorHandlerMiddleware = require('./middleware/error-handler');
 
+// middlewares
+app.use(express.json());
+
 // set up routes
 app.get('/', (req, res) => {
   res.send('Jobster API');
