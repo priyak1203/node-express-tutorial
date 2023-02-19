@@ -3,6 +3,10 @@ const app = express();
 require('dotenv').config();
 require('express-async-errors');
 
+// extra security packages
+const helmet = require('helmet');
+const xss = require('xss-clean');
+
 // database connection
 const connectDB = require('./db/connect');
 
@@ -19,6 +23,8 @@ const errorHandlerMiddleware = require('./middleware/error-handler');
 
 // middlewares
 app.use(express.json());
+app.use(helmet());
+app.use(xss());
 
 // set up routes
 app.get('/', (req, res) => {
