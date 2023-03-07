@@ -7,13 +7,22 @@ require('express-async-errors');
 // database connection
 const connectDB = require('./db/connect');
 
+// routers
+const productRouter = require('./routes/productRoutes');
+
 // error handlers
 const notFoundMiddleware = require('./middlewares/not-found');
 const errorHandlerMiddleware = require('./middlewares/error-handler');
 
+// middlewares
+app.use(express.json());
+
 app.get('/', (req, res) => {
   res.send('<h1>File Upload Project </h1>');
 });
+
+// set up routes
+app.use('/api/v1/products', productRouter);
 
 // setup error handlers
 app.use(notFoundMiddleware);
