@@ -4,9 +4,35 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- normalize css -->
+    <link rel="stylesheet" href="./normalize.css" />
+    <!-- styles css -->
+    <link rel="stylesheet" href="./styles.css" />
     <title>File Upload Project</title>
   </head>
   <body>
-    <h1>File Upload FrontEnd</h1>
+    <form class="form file-form">
+      <h4>file upload</h4>
+      <!-- name input -->
+      <div class="form-row">
+        <label for="name" class="form-label">name</label>
+        <input type="text" id="name" class="form-input" value="product" />
+      </div>
+      <!-- end of name input -->
+      <!-- price input -->
+      <div class="form-row">
+        <label for="price" class="form-label">price</label>
+        <input type="number" id="price" class="form-input" value="200" />
+      </div>
+      <!-- end of price input -->
+      <!-- image upload -->
+      <div class="form-row">
+        <label for="image" class="form-label">image</label>
+        <input type="file" id="image" accept="image/*" />
+      </div>
+      <!-- end of image upload -->
+      <button type="submit" class="btn btn-block">add product</button>
+    </form>
+    <section class="container"></section>
   </body>
 </html>
