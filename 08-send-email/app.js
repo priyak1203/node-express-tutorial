@@ -4,18 +4,18 @@ const app = express();
 require('dotenv').config();
 require('express-async-errors');
 
+const sendEmail = require('./controllers/sendEmail');
+
 // error handlers
 const notFoundMiddleware = require('./middlewares/not-found');
 const errorHandlerMiddleware = require('./middlewares/error-handler');
-
-const sendEmail = require('./controllers/sendEmail');
 
 // routes
 app.get('/', (req, res) => {
   res.send('<h1>Sending Email Project</h1> <a href="/send">send email </a>');
 });
-
 app.get('/send', sendEmail);
+
 // middlewares
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
