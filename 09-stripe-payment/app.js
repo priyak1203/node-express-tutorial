@@ -8,6 +8,9 @@ require('express-async-errors');
 const notFoundMiddleware = require('./middlewares/not-found');
 const errorHandlerMiddleware = require('./middlewares/error-handler');
 
+app.use(express.json());
+app.use(express.static('./public'));
+
 app.get('/', (req, res) => {
   res.send('Stripe Payment Project');
 });
