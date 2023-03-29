@@ -10,7 +10,7 @@ const stripe = Stripe(
   'pk_test_51M5RZUSGJCyAT8K8TcWNvUgE8191VVSCmHW9QymnvutdJID3JKPbo4CEd7ZFEhxVwopMjWZB4bv1E2jHDCP9JpJ100Qg0uQtAq'
 );
 
-// Disable the button untile we have Stripe set up on the page
+// Disable the button until we have Stripe set up on the page
 document.querySelector('button').disabled = true;
 
 fetch('/stripe', {
@@ -63,7 +63,6 @@ fetch('/stripe', {
       event.preventDefault();
 
       // Complete payment when the submit button is clicked
-
       payWithCard(stripe, card, data.clientSecret);
     });
   });
@@ -71,7 +70,6 @@ fetch('/stripe', {
 // Calls stripe.confirmCardPayment
 // If the card requires authentication Strip shows a pop-up modal to
 // prompt the user to enter authentication details without leaving your page
-
 const payWithCard = function (stripe, card, clientSecret) {
   loading(true);
 
@@ -108,8 +106,7 @@ let orderComplete = function (paymentIntentId) {
   document.querySelector('button').disabled = true;
 };
 
-// Shwo the customer the error from Stripe if their card fails to charge
-
+// Show the customer the error from Stripe if their card fails to charge
 let showError = function (errorMsgText) {
   loading(false);
 
@@ -122,7 +119,6 @@ let showError = function (errorMsgText) {
 };
 
 // Show a spinner on payment submission
-
 let loading = function (isLoading) {
   if (isLoading) {
     // Disable the button and show a spinner
