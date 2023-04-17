@@ -1,13 +1,25 @@
 const express = require('express');
 const app = express();
 require('dotenv').config();
+require('express-async-errors');
 
 // database connection
 const connectDB = require('./db/connect');
 
+// error handler middlewares
+const notFoundMiddleware = require('./middlewares/not-found');
+const errorHandlerMiddleware = require('./middlewares/error-handler');
+
+// setup middlewares
+app.use(express.json());
+
 app.get('/', (req, res) => {
-  res.send('Home Page');
+  res.send('e-commerce api');
 });
+
+// setup error handlers
+app.use(notFoundMiddleware);
+app.use(errorHandlerMiddleware);
 
 const PORT = process.env.PORT || 3000;
 const start = async () => {
