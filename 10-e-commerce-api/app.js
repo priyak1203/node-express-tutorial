@@ -9,6 +9,9 @@ const morgan = require('morgan');
 // database connection
 const connectDB = require('./db/connect');
 
+// routers
+const authRouter = require('./routes/authRoutes');
+
 // error handler middlewares
 const notFoundMiddleware = require('./middlewares/not-found');
 const errorHandlerMiddleware = require('./middlewares/error-handler');
@@ -20,6 +23,9 @@ app.use(express.json());
 app.get('/', (req, res) => {
   res.send('e-commerce api');
 });
+
+// setup routes
+app.use('/api/v1/auth', authRouter);
 
 // setup error handlers
 app.use(notFoundMiddleware);
