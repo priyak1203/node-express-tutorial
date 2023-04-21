@@ -3,7 +3,7 @@ const CustomError = require('../errors');
 const User = require('../models/User');
 
 const register = async (req, res) => {
-  const { email } = req.body;
+  const { email, name, password } = req.body;
 
   // checking for duplicate email value
   const emailAlreadyExists = await User.findOne({ email });
@@ -11,7 +11,7 @@ const register = async (req, res) => {
     throw new CustomError.BadRequestError('Email already exists');
   }
 
-  const user = await User.create(req.body);
+  const user = await User.create({ email, name, password });
   res.status(StatusCodes.CREATED).json({ user });
 };
 
