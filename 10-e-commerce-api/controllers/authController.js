@@ -11,7 +11,11 @@ const register = async (req, res) => {
     throw new CustomError.BadRequestError('Email already exists');
   }
 
-  const user = await User.create({ email, name, password });
+  // first registered user is an admin
+  const isFirstAccount = (await User.countDocuments({})) === 0;
+  const role = isFirstAccount ? 'admin' : 'user';
+
+  const user = await User.create({ email, name, password, role });
   res.status(StatusCodes.CREATED).json({ user });
 };
 
