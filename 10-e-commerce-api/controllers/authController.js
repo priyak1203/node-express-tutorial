@@ -24,8 +24,31 @@ const register = async (req, res) => {
   res.status(StatusCodes.CREATED).json({ user: tokenUser });
 };
 
-const login = (req, res) => {
-  res.send('Login User');
+const login = async (req, res) => {
+  const { email, password } = req.body;
+
+  // email and password check
+  if (!email || !password) {
+    throw new CustomError.BadRequestError('Please provide email and password');
+  }
+
+  // user check
+  const user = await User.findOne({ email });
+  if (!user) {
+    throw new CustomError.UnauthenticatedError('Invalid Credentials');
+  }
+
+  // password check
+  const isPasswordCorrect = await user.comparePassword(password);
+  if (!isPasswordCorrect) {
+    throw new CustomError.UnauthenticatedError('Invalid Credentials');
+  }
+
+  // attach cookies
+  const tokenUser = { name: user.name, userId: user._id, role: user.role };
+  attachCookiesToResponse({ res, tokenUser });
+
+  res.status(StatusCodes.OK).json({ user: tokenUser });
 };
 
 const logout = (req, res) => {
