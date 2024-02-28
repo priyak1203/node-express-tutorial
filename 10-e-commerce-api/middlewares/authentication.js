@@ -33,7 +33,6 @@ const authenticateUser = (req, res, next) => {
 // };
 
 // general for multiple roles
-
 const authorizePermissions = (...roles) => {
   return (req, res, next) => {
     if (!roles.includes(req.user.role)) {
