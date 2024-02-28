@@ -1,7 +1,7 @@
 const { StatusCodes } = require('http-status-codes');
 const CustomError = require('../errors');
 const User = require('../models/User');
-const { attachCookiesToResponse } = require('../utils');
+const { attachCookiesToResponse, createTokenUser } = require('../utils');
 
 const register = async (req, res) => {
   const { email, name, password } = req.body;
@@ -18,7 +18,7 @@ const register = async (req, res) => {
   const user = await User.create({ email, name, password, role });
 
   // jwt config
-  const tokenUser = { name: user.name, userId: user._id, role: user.role };
+  const tokenUser = createTokenUser(user);
   attachCookiesToResponse({ res, tokenUser });
 
   res.status(StatusCodes.CREATED).json({ user: tokenUser });
@@ -45,7 +45,7 @@ const login = async (req, res) => {
   }
 
   // attach cookies
-  const tokenUser = { name: user.name, userId: user._id, role: user.role };
+  const tokenUser = createTokenUser(user);
   attachCookiesToResponse({ res, tokenUser });
 
   res.status(StatusCodes.OK).json({ user: tokenUser });
