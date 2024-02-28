@@ -21,14 +21,28 @@ const authenticateUser = (req, res, next) => {
   }
 };
 
-const authorizePermissions = (req, res, next) => {
-  if (req.user.role !== 'admin') {
-    throw new CustomError.UnauthorizedError(
-      'Unauthorized to access this route'
-    );
-  }
+// role is hardcoded
+// const authorizePermissions = (req, res, next) => {
+//   if (req.user.role !== 'admin') {
+//     throw new CustomError.UnauthorizedError(
+//       'Unauthorized to access this route'
+//     );
+//   }
 
-  next();
+//   next();
+// };
+
+// general for multiple roles
+
+const authorizePermissions = (...roles) => {
+  return (req, res, next) => {
+    if (!roles.includes(req.user.role)) {
+      throw new CustomError.UnauthorizedError(
+        'Not Authorized to access this route'
+      );
+    }
+    next();
+  };
 };
 
 module.exports = {
