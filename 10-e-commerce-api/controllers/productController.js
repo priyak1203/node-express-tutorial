@@ -1,5 +1,6 @@
 const { StatusCodes } = require('http-status-codes');
 const Product = require('../models/Product');
+const CustomError = require('../errors');
 
 const createProduct = async (req, res) => {
   req.body.user = req.user.userId;
@@ -13,7 +14,14 @@ const getAllProducts = async (req, res) => {
 };
 
 const getSingleProduct = async (req, res) => {
-  res.send('Get Single Product');
+  const { id: productId } = req.params;
+  const product = await Product.findOne({ _id: productId });
+
+  if (!product) {
+    throw new CustomError.NotFoundError(`No product with id: ${productId}`);
+  }
+
+  res.status(StatusCodes.OK).json({ product });
 };
 
 const updateProduct = async (req, res) => {
