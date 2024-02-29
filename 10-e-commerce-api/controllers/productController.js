@@ -1,25 +1,25 @@
 const createProduct = async (req, res) => {
-  console.log('Create Product');
+  res.send('Create Product');
 };
 
 const getAllProducts = async (req, res) => {
-  console.log('Get all Products');
+  res.send('Get all Products');
 };
 
 const getSingleProduct = async (req, res) => {
-  console.log('Get Single Product');
+  res.send('Get Single Product');
 };
 
 const updateProduct = async (req, res) => {
-  console.log('Update Product');
+  res.send('Update Product');
 };
 
 const deleteProduct = async (req, res) => {
-  console.log('Delete Product');
+  res.send('Delete Product');
 };
 
 const uploadImage = async (req, res) => {
-  console.log('Upload Image');
+  res.send('Upload Image');
 };
 
 module.exports = {
