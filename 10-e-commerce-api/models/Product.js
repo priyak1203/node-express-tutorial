@@ -66,6 +66,14 @@ const ProductSchema = new mongoose.Schema(
   { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
 
+ProductSchema.pre(
+  'deleteOne',
+  { document: true, query: false },
+  async function () {
+    await this.model('Review').deleteMany({ product: this._id });
+  }
+);
+
 ProductSchema.virtual('reviews', {
   ref: 'Review',
   localField: '_id',
