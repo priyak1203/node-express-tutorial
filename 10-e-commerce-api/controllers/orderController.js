@@ -1,5 +1,12 @@
 const Product = require('../models/Product');
 const CustomError = require('../errors');
+const Order = require('../models/Order');
+const { StatusCodes } = require('http-status-codes');
+
+const faskeStripeAPI = async ({ amount, currency }) => {
+  const client_secret = 'someRandomValue';
+  return { client_secret, amount };
+};
 
 const createOrder = async (req, res) => {
   const { items: cartItems, shippingFee, tax } = req.body;
@@ -41,8 +48,30 @@ const createOrder = async (req, res) => {
     subTotal += item.amount * price;
   }
 
-  console.log(orderItems, subTotal);
-  res.send('Create Order');
+  // calculate total
+  const total = tax + shippingFee + subTotal;
+
+  console.log({ subTotal, total });
+
+  // get client secret
+  const paymentIntent = await faskeStripeAPI({
+    amount: total,
+    currency: 'usd',
+  });
+
+  const order = await Order.create({
+    tax,
+    shippingFee,
+    subTotal,
+    total,
+    orderItems,
+    clientSecret: paymentIntent.client_secret,
+    user: req.user.userId,
+  });
+
+  res
+    .status(StatusCodes.CREATED)
+    .json({ order, clientSecret: order.clientSecret });
 };
 
 const getAllOrders = async (req, res) => {
