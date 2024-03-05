@@ -2,6 +2,7 @@ const Product = require('../models/Product');
 const CustomError = require('../errors');
 const Order = require('../models/Order');
 const { StatusCodes } = require('http-status-codes');
+const checkPermissions = require('../utils/checkPermissions');
 
 const faskeStripeAPI = async ({ amount, currency }) => {
   const client_secret = 'someRandomValue';
@@ -75,19 +76,45 @@ const createOrder = async (req, res) => {
 };
 
 const getAllOrders = async (req, res) => {
-  res.send('Get All Orders');
+  const orders = await Order.find({});
+  res.status(StatusCodes.OK).json({ count: orders.length, orders });
 };
 
 const getSingleOrder = async (req, res) => {
-  res.send('Get Single Order');
+  const { id: orderId } = req.params;
+  const order = await Order.findOne({ _id: orderId });
+
+  if (!order) {
+    throw new CustomError.NotFoundError(`No order with id: ${orderId}`);
+  }
+
+  checkPermissions({ requestUser: req.user, resourceUserId: order.user });
+
+  res.status(StatusCodes.OK).json({ order });
 };
 
 const getCurrentUserOrders = async (req, res) => {
-  res.send('Get Current User Orders');
+  const { userId } = req.user;
+  const orders = await Order.find({ user: userId });
+  res.status(StatusCodes.OK).json({ count: orders.length, orders });
 };
 
 const updateOrder = async (req, res) => {
-  res.send('Update Order');
+  const { id: orderId } = req.params;
+  const { paymentIntentId } = req.body;
+
+  const order = await Order.findOne({ _id: orderId });
+  if (!order) {
+    throw new CustomError.NotFoundError(`No order with id: ${orderId}`);
+  }
+
+  checkPermissions({ requestUser: req.user, resourceUserId: order.user });
+
+  order.paymentId = paymentIntentId;
+  order.status = 'paid';
+  await order.save();
+
+  res.status(StatusCodes.OK).json({ order });
 };
 
 module.exports = {
