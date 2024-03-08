@@ -15,13 +15,23 @@ const register = async (req, res) => {
   // first registered user is an admin
   const isFirstAccount = (await User.countDocuments({})) === 0;
   const role = isFirstAccount ? 'admin' : 'user';
-  const user = await User.create({ email, name, password, role });
 
-  // jwt config
-  const tokenUser = createTokenUser(user);
-  attachCookiesToResponse({ res, tokenUser });
+  const verificationToken = 'fake token';
 
-  res.status(StatusCodes.CREATED).json({ user: tokenUser });
+  const user = await User.create({
+    email,
+    name,
+    password,
+    role,
+    verificationToken,
+  });
+
+  // send verification token back only while testing in postman
+
+  res.status(StatusCodes.CREATED).json({
+    msg: 'Success! Please check your email to verify the account',
+    token: user.verificationToken,
+  });
 };
 
 const login = async (req, res) => {
