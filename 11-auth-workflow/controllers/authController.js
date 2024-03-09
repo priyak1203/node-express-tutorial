@@ -54,11 +54,11 @@ const login = async (req, res) => {
     throw new CustomError.UnauthenticatedError('Invalid Credentials');
   }
 
-  // attach cookies
-  const tokenUser = createTokenUser(user);
-  attachCookiesToResponse({ res, tokenUser });
+  if (!user.isVerified) {
+    throw new CustomError.UnauthenticatedError('Please verify your email');
+  }
 
-  res.status(StatusCodes.OK).json({ user: tokenUser });
+  res.status(StatusCodes.OK).json({ user });
 };
 
 const logout = (req, res) => {
