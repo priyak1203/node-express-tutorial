@@ -37,7 +37,25 @@ const register = async (req, res) => {
 
 const verifyEmail = async (req, res) => {
   const { verificationToken, email } = req.body;
-  res.status(StatusCodes.OK).json({ verificationToken, email });
+
+  // check if the user exists
+  const user = await User.findOne({ email });
+  if (!user) {
+    throw new CustomError.UnauthenticatedError('Verification Failed!');
+  }
+
+  // check if the token matches
+  if (user.verificationToken !== verificationToken) {
+    throw new CustomError.UnauthenticatedError('Verification Failed!');
+  }
+
+  user.isVerified = true;
+  user.verified = Date.now();
+  user.verificationToken = '';
+
+  await user.save();
+
+  res.status(StatusCodes.OK).json({ msg: 'Email Verified' });
 };
 
 const login = async (req, res) => {
@@ -64,7 +82,9 @@ const login = async (req, res) => {
     throw new CustomError.UnauthenticatedError('Please verify your email');
   }
 
-  res.status(StatusCodes.OK).json({ user });
+  const tokenUser = createTokenUser(user);
+
+  res.status(StatusCodes.OK).json({ tokenUser });
 };
 
 const logout = (req, res) => {
