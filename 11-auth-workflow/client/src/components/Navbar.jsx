@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import logo from '../assets/logo.svg';
 import styled from 'styled-components';
 
@@ -7,9 +8,9 @@ const Navbar = () => {
   return (
     <Wrapper>
       <div className="nav-center">
-        <div className="home-link">
+        <Link to="/" className="home-link">
           <img src={logo} alt="auth-workflow" />
-        </div>
+        </Link>
         {user && (
           <div className="nav-links">
             <p>Hello, user</p>
