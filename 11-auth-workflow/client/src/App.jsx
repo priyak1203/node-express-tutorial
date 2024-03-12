@@ -1,5 +1,6 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import { Home, Login } from './pages';
+import { Home, Login, Register } from './pages';
+import Navbar from './components/Navbar';
 
 const router = createBrowserRouter([
   {
@@ -10,12 +11,16 @@ const router = createBrowserRouter([
     path: 'login',
     element: <Login />,
   },
+  {
+    path: 'register',
+    element: <Register />,
+  },
 ]);
 
 function App() {
   return (
     <>
-      <h1>Auth Workflow</h1>
+      <Navbar />
       <RouterProvider router={router}></RouterProvider>
     </>
   );
