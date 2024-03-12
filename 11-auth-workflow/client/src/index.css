@@ -170,3 +170,16 @@ ul {
 .btn:disabled {
   cursor: not-allowed;
 }
+
+.page {
+  min-height: calc(100vh - 6rem);
+  width: var(--fluid-width);
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding-top: 3rem;
+}
+.page-center {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+}
