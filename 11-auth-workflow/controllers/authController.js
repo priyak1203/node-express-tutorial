@@ -28,7 +28,11 @@ const register = async (req, res) => {
     verificationToken,
   });
 
-  await sendEmail();
+  await sendEmail({
+    to: email,
+    subject: 'Verification Email',
+    html: '<p>Please verify email</p>',
+  });
 
   res.status(StatusCodes.CREATED).json({
     msg: 'Success! Please check your email to verify the account',

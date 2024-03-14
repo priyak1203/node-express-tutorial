@@ -1,24 +1,17 @@
 const nodemailer = require('nodemailer');
+const nodeMailerConfig = require('./nodeMailerConfig');
 
 // sending email using ethereal - testing
-const sendEmail = async () => {
+const sendEmail = async ({ to, subject, html }) => {
   const testAccount = await nodemailer.createTestAccount();
 
-  const transporter = nodemailer.createTransport({
-    host: 'smtp.ethereal.email',
-    port: 587,
-    auth: {
-      user: 'dillon.mayer3@ethereal.email',
-      pass: 'dtdnC3VHrx3RXuQ9TT',
-    },
-  });
+  const transporter = nodemailer.createTransport(nodeMailerConfig);
 
-  const info = await transporter.sendMail({
+  return transporter.sendMail({
     from: '"Coding Addict" <codingAddict@gmail.com>', // sender address
-    to: 'user@gmail.com', // list of receivers
-    subject: 'Testing  Email', // Subject line
-    text: 'Hello world?', // plain text body
-    html: '<b>Testing Email</b>', // html body
+    to, // list of receivers
+    subject, // Subject line
+    html, // html body
   });
 };
 
