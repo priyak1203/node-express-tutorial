@@ -31,10 +31,13 @@ const register = async (req, res) => {
     verificationToken,
   });
 
+  const origin = 'http://localhost:5173';
+
   await sendVerificationEmail({
     name: user.name,
     email: user.email,
     verificationToken: user.verificationToken,
+    origin,
   });
 
   res.status(StatusCodes.CREATED).json({
