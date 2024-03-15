@@ -1,5 +1,14 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import { Error, Home, HomeLayout, Login, Register, Verify } from './pages';
+import {
+  Dashboard,
+  Error,
+  Home,
+  HomeLayout,
+  Login,
+  ProtectedRoute,
+  Register,
+  Verify,
+} from './pages';
 
 const router = createBrowserRouter([
   {
@@ -18,6 +27,14 @@ const router = createBrowserRouter([
       {
         path: 'register',
         element: <Register />,
+      },
+      {
+        path: 'dashboard',
+        element: (
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        ),
       },
       {
         path: 'user/verify-email',

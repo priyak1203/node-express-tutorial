@@ -5,6 +5,7 @@ import { useState } from 'react';
 import useLocalState from '../utils/localState';
 import axios from 'axios';
 import url from '../utils/url';
+import { useGlobalContext } from '../context';
 
 const Login = () => {
   const [values, setValues] = useState({
@@ -12,6 +13,7 @@ const Login = () => {
     password: '',
   });
   const { loading, setLoading, alert, showAlert, hideAlert } = useLocalState();
+  const { saveUser } = useGlobalContext();
 
   const navigate = useNavigate();
 
@@ -29,6 +31,7 @@ const Login = () => {
 
     try {
       const { data } = await axios.post(`${url}/api/v1/auth/login`, loginUser);
+      saveUser(data.user);
       setValues({ email: '', password: '' });
       showAlert({
         type: 'success',
