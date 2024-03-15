@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom';
 import logo from '../assets/logo.svg';
 import styled from 'styled-components';
+import { useGlobalContext } from '../context';
 
 const Navbar = () => {
-  const user = true;
+  const { user } = useGlobalContext();
 
   return (
     <Wrapper>
@@ -13,7 +14,7 @@ const Navbar = () => {
         </Link>
         {user && (
           <div className="nav-links">
-            <p>Hello, user</p>
+            <p>Hello, {user.name}</p>
             <button className="btn btn-small">logout</button>
           </div>
         )}

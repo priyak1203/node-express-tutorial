@@ -13,8 +13,8 @@ const AppProvider = ({ children }) => {
 
   const fetchUser = async () => {
     try {
-      const response = await axios.get(`/api/v1/users/showMe`);
-      console.log({ response });
+      const { data } = await axios.get(`/api/v1/users/showMe`);
+      saveUser(data.user);
     } catch (error) {
       console.log(error);
     }
