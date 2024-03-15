@@ -12,6 +12,7 @@ const helmet = require('helmet');
 const xss = require('xss-clean');
 const cors = require('cors');
 const mongoSanitize = require('express-mongo-sanitize');
+const path = require('path');
 
 // database connection
 const connectDB = require('./db/connect');
@@ -43,7 +44,7 @@ app.use(mongoSanitize());
 app.use(morgan('tiny'));
 app.use(express.json());
 app.use(cookieParser(process.env.JWT_SECRET));
-app.use(express.static('./public'));
+app.use(express.static(path.resolve(__dirname, './client/dist')));
 app.use(fileUpload());
 
 app.get('/', (req, res) => {
@@ -62,6 +63,10 @@ app.use('/api/v1/users', userRouter);
 app.use('/api/v1/products', productRouter);
 app.use('/api/v1/reviews', reviewRouter);
 app.use('/api/v1/orders', orderRouter);
+
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, './client/dist', 'index.html'));
+});
 
 // setup error handlers
 app.use(notFoundMiddleware);

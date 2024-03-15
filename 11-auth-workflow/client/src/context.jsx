@@ -1,6 +1,5 @@
 import { useContext, createContext, useEffect, useState } from 'react';
 import axios from 'axios';
-import url from './utils/url';
 
 const AppContext = createContext();
 
@@ -14,7 +13,7 @@ const AppProvider = ({ children }) => {
 
   const fetchUser = async () => {
     try {
-      const response = await axios.get(`${url}/api/v1/users/showMe`);
+      const response = await axios.get(`/api/v1/users/showMe`);
       console.log({ response });
     } catch (error) {
       console.log(error);

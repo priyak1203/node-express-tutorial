@@ -1,6 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
 import axios from 'axios';
-import url from '../utils/url';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
@@ -18,7 +17,7 @@ const Verify = () => {
     setLoading(true);
 
     try {
-      const { data } = await axios.post(`${url}/api/v1/auth/verify-email`, {
+      const { data } = await axios.post(`/api/v1/auth/verify-email`, {
         verificationToken: query.get('token'),
         email: query.get('email'),
       });

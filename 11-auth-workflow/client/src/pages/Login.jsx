@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import useLocalState from '../utils/localState';
 import axios from 'axios';
-import url from '../utils/url';
+
 import { useGlobalContext } from '../context';
 
 const Login = () => {
@@ -30,7 +30,7 @@ const Login = () => {
     const loginUser = { email, password };
 
     try {
-      const { data } = await axios.post(`${url}/api/v1/auth/login`, loginUser);
+      const { data } = await axios.post(`/api/v1/auth/login`, loginUser);
       saveUser(data.user);
       setValues({ email: '', password: '' });
       showAlert({
