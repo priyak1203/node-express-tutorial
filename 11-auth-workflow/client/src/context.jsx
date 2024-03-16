@@ -11,14 +11,28 @@ const AppProvider = ({ children }) => {
     setUser(user);
   };
 
+  const removeUser = () => {
+    setUser(null);
+  };
+
   const fetchUser = async () => {
     try {
       const { data } = await axios.get(`/api/v1/users/showMe`);
       saveUser(data.user);
     } catch (error) {
-      console.log(error);
+      removeUser();
     }
     setIsLoading(false);
+  };
+
+  const logoutUser = async () => {
+    try {
+      await axios.get(`/api/v1/auth/logout`);
+      removeUser();
+      location.assign('/');
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
@@ -31,6 +45,7 @@ const AppProvider = ({ children }) => {
         isLoading,
         user,
         saveUser,
+        logoutUser,
       }}
     >
       {children}

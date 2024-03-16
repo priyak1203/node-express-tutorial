@@ -9,6 +9,7 @@ import {
   Register,
   Verify,
 } from './pages';
+import DashboardNew, { loader as dashboardLoader } from './pages/DashboardNew';
 
 const router = createBrowserRouter([
   {
@@ -30,11 +31,8 @@ const router = createBrowserRouter([
       },
       {
         path: 'dashboard',
-        element: (
-          <ProtectedRoute>
-            <Dashboard />,
-          </ProtectedRoute>
-        ),
+        element: <DashboardNew />,
+        loader: dashboardLoader,
       },
       {
         path: 'user/verify-email',

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { useGlobalContext } from '../context';
 
 const Navbar = () => {
-  const { user } = useGlobalContext();
+  const { user, logoutUser } = useGlobalContext();
 
   return (
     <Wrapper>
@@ -15,7 +15,9 @@ const Navbar = () => {
         {user && (
           <div className="nav-links">
             <p>Hello, {user.name}</p>
-            <button className="btn btn-small">logout</button>
+            <button className="btn btn-small" onClick={() => logoutUser()}>
+              logout
+            </button>
           </div>
         )}
       </div>
