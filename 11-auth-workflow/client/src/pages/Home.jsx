@@ -1,6 +1,16 @@
 import styled from 'styled-components';
 import main from '../assets/main.svg';
-import { Link } from 'react-router-dom';
+import { Link, redirect } from 'react-router-dom';
+import axios from 'axios';
+
+export const loader = async () => {
+  try {
+    const { data } = await axios.get(`/api/v1/users/showMe`);
+    if (data.user) return redirect('/dashboard');
+  } catch (error) {
+    return null;
+  }
+};
 
 const Home = () => {
   return (

@@ -10,6 +10,7 @@ import {
   Verify,
 } from './pages';
 import DashboardNew, { loader as dashboardLoader } from './pages/DashboardNew';
+import { loader } from './pages/Home';
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,7 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Home />,
+        loader: loader,
       },
       {
         path: 'login',
