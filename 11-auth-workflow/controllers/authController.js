@@ -31,7 +31,7 @@ const register = async (req, res) => {
     verificationToken,
   });
 
-  const origin = 'http://localhost:5173';
+  const origin = 'http://localhost:5000';
 
   await sendVerificationEmail({
     name: user.name,
