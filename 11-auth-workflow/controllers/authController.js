@@ -31,7 +31,20 @@ const register = async (req, res) => {
     verificationToken,
   });
 
-  const origin = 'http://localhost:5000';
+  const origin = 'http://localhost:5173';
+
+  const tempOrigin = req.get('origin');
+  console.log(`Origin : ${tempOrigin}`);
+
+  const protocol = req.protocol;
+  console.log(`Protocol : ${protocol}`);
+  const host = req.get('host');
+  console.log(`host : ${host}`);
+
+  const forwardedHost = req.get('x-forwarded-host');
+  const forwarededProtocol = req.get('x-forwarded-proto');
+  console.log(`forwared Host: ${forwardedHost}`);
+  console.log(`forwarded protocol : ${forwarededProtocol}`);
 
   await sendVerificationEmail({
     name: user.name,
