@@ -34,18 +34,11 @@ const register = async (req, res) => {
 
   const origin = 'http://localhost:5173';
 
-  const tempOrigin = req.get('origin');
-  console.log(`Origin : ${tempOrigin}`);
-
-  const protocol = req.protocol;
-  console.log(`Protocol : ${protocol}`);
-  const host = req.get('host');
-  console.log(`host : ${host}`);
-
-  const forwardedHost = req.get('x-forwarded-host');
-  const forwarededProtocol = req.get('x-forwarded-proto');
-  console.log(`forwared Host: ${forwardedHost}`);
-  console.log(`forwarded protocol : ${forwarededProtocol}`);
+  // const tempOrigin = req.get('origin');
+  // const protocol = req.protocol;
+  // const host = req.get('host');
+  // const forwardedHost = req.get('x-forwarded-host');
+  // const forwarededProtocol = req.get('x-forwarded-proto');
 
   await sendVerificationEmail({
     name: user.name,
@@ -102,6 +95,7 @@ const login = async (req, res) => {
     throw new CustomError.UnauthenticatedError('Invalid Credentials');
   }
 
+  // user verification status check
   if (!user.isVerified) {
     throw new CustomError.UnauthenticatedError('Please verify your email');
   }
@@ -120,7 +114,7 @@ const login = async (req, res) => {
     }
 
     refreshToken = existingToken.refreshToken;
-    attachCookiesToResponse({ res, tokenUser, refreshToken });
+    attachCookiesToResponse({ res, user: tokenUser, refreshToken });
 
     res.status(StatusCodes.OK).json({ user: tokenUser });
     return;
@@ -134,7 +128,7 @@ const login = async (req, res) => {
 
   await Token.create(userToken);
 
-  attachCookiesToResponse({ res, tokenUser, refreshToken });
+  attachCookiesToResponse({ res, user: tokenUser, refreshToken });
 
   res.status(StatusCodes.OK).json({ user: tokenUser });
 };

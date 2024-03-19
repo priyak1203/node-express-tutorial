@@ -2,20 +2,23 @@ const CustomError = require('../errors');
 const { isTokenValid } = require('../utils/jwt');
 
 const authenticateUser = (req, res, next) => {
-  const { token } = req.signedCookies;
-
-  if (!token)
-    throw new CustomError.UnauthenticatedError('Authentication invalid');
+  const { accessToken, refreshToken } = req.signedCookies;
+  console.log({ accessToken, refreshToken });
 
   try {
-    const { name, userId, role } = isTokenValid({ token });
-    req.user = {
-      name,
-      userId,
-      role,
-    };
+    if (accessToken) {
+      const payload = isTokenValid(accessToken);
+      req.user = payload.user;
+      return next();
+    }
+    // const { name, userId, role } = isTokenValid({ token });
+    // req.user = {
+    //   name,
+    //   userId,
+    //   role,
+    // };
 
-    next();
+    // next();
   } catch (error) {
     throw new CustomError.UnauthenticatedError('Authentication invalid');
   }
