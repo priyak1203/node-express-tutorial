@@ -2,6 +2,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import {
   Dashboard,
   Error,
+  ForgotPassword,
   Home,
   HomeLayout,
   Login,
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
         path: 'dashboard',
         element: <DashboardNew />,
         loader: dashboardLoader,
+      },
+      {
+        path: 'forgot-password',
+        element: <ForgotPassword />,
       },
       {
         path: 'user/verify-email',
