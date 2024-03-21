@@ -12,6 +12,7 @@ import {
 } from './pages';
 import DashboardNew, { loader as dashboardLoader } from './pages/DashboardNew';
 import { loader } from './pages/Home';
+import ResetPassword from './pages/ResetPassword';
 
 const router = createBrowserRouter([
   {
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
       {
         path: 'user/verify-email',
         element: <Verify />,
+      },
+      {
+        path: 'user/reset-password',
+        element: <ResetPassword />,
       },
     ],
   },

@@ -43,7 +43,6 @@ const ForgotPassword = () => {
       const { msg } = error.response.data;
       showAlert({ text: msg || 'Something went wrong, please try again' });
       setSuccess(true);
-      console.log(error);
     }
     setLoading(false);
   };

@@ -7,3 +7,4 @@ export { default as Verify } from './Verify';
 export { default as Dashboard } from './Dashboard';
 export { default as ProtectedRoute } from './ProtectedRoute';
 export { default as ForgotPassword } from './ForgotPassword';
+export { default as resetPassword } from './ResetPassword';
