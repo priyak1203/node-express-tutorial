@@ -44,7 +44,7 @@ app.use(mongoSanitize());
 app.use(morgan('tiny'));
 app.use(express.json());
 app.use(cookieParser(process.env.JWT_SECRET));
-// app.use(express.static(path.resolve(__dirname, './client/dist')));
+app.use(express.static(path.resolve(__dirname, './client/dist')));
 app.use(fileUpload());
 
 app.get('/', (req, res) => {
@@ -64,9 +64,9 @@ app.use('/api/v1/products', productRouter);
 app.use('/api/v1/reviews', reviewRouter);
 app.use('/api/v1/orders', orderRouter);
 
-// app.get('*', (req, res) => {
-//   res.sendFile(path.resolve(__dirname, './client/dist', 'index.html'));
-// });
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, './client/dist', 'index.html'));
+});
 
 // setup error handlers
 app.use(notFoundMiddleware);

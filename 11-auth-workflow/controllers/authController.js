@@ -34,7 +34,7 @@ const register = async (req, res) => {
     verificationToken,
   });
 
-  const origin = 'http://localhost:5173';
+  const origin = 'http://localhost:5000';
 
   // origin -- domain name if hosted
   // const tempOrigin = req.get('origin');
@@ -163,7 +163,7 @@ const forgotPassword = async (req, res) => {
   if (user) {
     const passwordToken = crypto.randomBytes(70).toString('hex');
     // send email
-    const origin = 'http://localhost:5173';
+    const origin = 'http://localhost:5000';
 
     await sendResetPasswordEmail({
       name: user.name,
